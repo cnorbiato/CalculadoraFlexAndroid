@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import br.com.norbiato.calculadoraflex.R
+import br.com.norbiato.calculadoraflex.extensions.format
 import kotlinx.android.synthetic.main.activity_result.*
 
 class ResultActivity : AppCompatActivity() {
@@ -17,6 +18,9 @@ class ResultActivity : AppCompatActivity() {
         } else {
             calculate()
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayShowHomeEnabled(true);
     }
 
     private fun calculate() {
@@ -34,11 +38,16 @@ class ResultActivity : AppCompatActivity() {
             }
         }
         if (ethanolPrice != null) {
-            tvEthanolAverageResult.text = (ethanolPrice / ethanolAverage!!).toString()
+            tvEthanolAverageResult.text = (ethanolPrice / ethanolAverage).format(2)
         }
-        if (ethanolPrice != null) {
-            tvGasAverageResult.text = (gasPrice / ethanolAverage!!).toString()
+        if (gasPrice != null) {
+            tvGasAverageResult.text = (gasPrice / gasAverage).format(2)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
 }
